@@ -1,5 +1,23 @@
 {
   "scripts": {
     "build": "[my-framework] build --output public"
+  },
+  "name": "primary",
+  "version": "1.0.0",
+  "description": "Cat dancing in disco :D",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taikatatti/DiscoCat.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/taikatatti/DiscoCat/issues"
+  },
+  "homepage": "https://github.com/taikatatti/DiscoCat#readme",
+  "dependencies": {
+    "@vercel/speed-insights": "^2.0.0"
   }
 }
