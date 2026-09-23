@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disco Cat</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-family: Arial, sans-serif;
+      background: #090712;
+      cursor: crosshair;
+    }
+
+    .room {
+      position: relative;
+      width: min(900px, 94vw);
+      height: min(620px, 88vh);
+      overflow: hidden;
+      border: 7px solid #25194c;
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 50% 13%, #7c39ff55 0 5%, transparent 24%),
+        linear-gradient(#17102e 0 72%, #251846 72% 74%, #100d22 74%);
+      box-shadow: 0 0 45px #672cff55;
+    }
+
+    .room::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: .45;
+      background: radial-gradient(ellipse at center, transparent 35%, #000 110%);
+    }
+
+    .sign {
+      position: absolute;
+      top: 40px;
+      left: 50%;
+      z-index: 2;
+      transform: translateX(-50%);
+      font-weight: 900;
+      font-size: clamp(22px, 4vw, 42px);
+      letter-spacing: 5px;
+      color: #ff8cec;
+      text-shadow: 0 0 8px #ff47dc, 0 0 22px #9f34ff;
+    }
+
+    .chain {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 4px;
+      height: 92px;
+      background: repeating-linear-gradient(#bbb 0 7px, #555 7px 12px);
+      transform: translateX(-50%);
+    }
+
+    .disco-ball {
+      position: absolute;
+      z-index: 2;
+      top: 75px;
+      left: 50%;
+      width: 115px;
+      height: 115px;
+      border-radius: 50%;
+      transform: translateX(-50%);
+      background:
+        linear-gradient(90deg, transparent 47%, #ffffff99 48% 52%, transparent 53%),
+        linear-gradient(transparent 47%, #ffffff99 48% 52%, transparent 53%),
+        repeating-linear-gradient(45deg, #d8e8ff 0 10px, #8b9abd 10px 20px);
+      box-shadow: 0 0 15px #fff, 0 0 50px #8d61ff, 0 0 95px #ff40ce;
+      animation: spin 3s linear infinite;
+    }
+
+    .light {
+      position: absolute;
+      z-index: 1;
+      top: 175px;
+      left: 50%;
+      width: 500px;
+      height: 530px;
+      transform: translateX(-50%);
+      transform-origin: top;
+      clip-path: polygon(45% 0, 55% 0, 100% 100%, 0 100%);
+      opacity: .38;
+      background: linear-gradient(90deg, #ff52d955, #54dfffaa, #ffec58aa, #a04dffaa);
+      animation: sway 4s ease-in-out infinite alternate;
+    }
+
+    .cat {
+      position: absolute;
+      z-index: 3;
+      left: 50%;
+      bottom: 78px;
+      width: 170px;
+      height: 190px;
+      transform: translateX(-50%);
+      animation: dance .62s ease-in-out infinite alternate;
+      filter: drop-shadow(0 12px 7px #0008);
+    }
+
+    .head {
+      position: absolute;
+      left: 38px;
+      top: 4px;
+      width: 98px;
+      height: 87px;
+      border-radius: 48% 48% 45% 45%;
+      background: #f3a650;
+    }
+
+    .ear { position: absolute; top: -18px; width: 37px; height: 45px; background: #f3a650; }
+    .ear.left { left: 2px; clip-path: polygon(0 0, 100% 75%, 0 100%); }
+    .ear.right { right: 2px; clip-path: polygon(100% 0, 100% 100%, 0 75%); }
+    .eye { position: absolute; top: 36px; width: 12px; height: 16px; border-radius: 50%; background: #171018; }
+    .eye.left { left: 24px; } .eye.right { right: 24px; }
+    .nose { position: absolute; top: 55px; left: 44px; width: 10px; height: 8px; border-radius: 50%; background: #e86c7d; }
+
+    .body { position: absolute; left: 48px; top: 77px; width: 78px; height: 89px; border-radius: 42% 42% 36% 36%; background: #f3a650; }
+    .leg { position: absolute; bottom: 0; width: 29px; height: 55px; border-radius: 20px; background: #f3a650; }
+    .leg.left { left: 54px; transform: rotate(13deg); } .leg.right { right: 45px; transform: rotate(-13deg); }
+    .arm { position: absolute; top: 89px; width: 26px; height: 80px; border-radius: 20px; background: #f3a650; transform-origin: top center; }
+    .arm.left { left: 37px; transform: rotate(58deg); animation: arm-left .62s ease-in-out infinite alternate; }
+    .arm.right { right: 31px; transform: rotate(-58deg); animation: arm-right .62s ease-in-out infinite alternate; }
+    .tail { position: absolute; right: 8px; top: 98px; width: 67px; height: 62px; border: 17px solid #f3a650; border-left: 0; border-bottom: 0; border-radius: 0 70px 0 0; transform: rotate(20deg); }
+
+    .heart {
+      position: fixed;
+      z-index: 10;
+      pointer-events: none;
+      font-size: 22px;
+      animation: float-away .9s ease-out forwards;
+    }
+
+    @keyframes spin { to { transform: translateX(-50%) rotate(360deg); } }
+    @keyframes sway { to { transform: translateX(-50%) rotate(8deg); } }
+    @keyframes dance { to { transform: translateX(-50%) rotate(6deg) translateY(-16px); } }
+    @keyframes arm-left { to { transform: rotate(105deg); } }
+    @keyframes arm-right { to { transform: rotate(-105deg); } }
+    @keyframes float-away { to { transform: translateY(-55px) scale(1.6) rotate(18deg); opacity: 0; } }
+
+    @media (max-width: 500px) {
+      .cat { transform: translateX(-50%) scale(.8); transform-origin: bottom; }
+      .disco-ball { transform: translateX(-50%) scale(.8); }
+    }
+  </style>
+</head>
+<body>
+  <main class="room">
+    <div class="sign">CAT DISCO</div>
+    <div class="chain"></div>
+    <div class="disco-ball"></div>
+    <div class="light"></div>
+
+    <div class="cat" aria-label="Tanssiva kissa">
+      <div class="head">
+        <div class="ear left"></div><div class="ear right"></div>
+        <div class="eye left"></div><div class="eye right"></div><div class="nose"></div>
+      </div>
+      <div class="body"></div><div class="tail"></div>
+      <div class="arm left"></div><div class="arm right"></div>
+      <div class="leg left"></div><div class="leg right"></div>
+    </div>
+  </main>
+
+  <script>
+    let lastHeart = 0;
+    document.addEventListener('pointermove', (event) => {
+      if (Date.now() - lastHeart < 55) return;
+      lastHeart = Date.now();
+      const heart = document.createElement('span');
+      heart.className = 'heart';
+      heart.textContent = Math.random() > .5 ? '♥' : '♥';
+      heart.style.left = `${event.clientX - 10}px`;
+      heart.style.top = `${event.clientY - 10}px`;
+      heart.style.color = Math.random() > .5 ? '#ff63df' : '#80edff';
+      document.body.appendChild(heart);
+      heart.addEventListener('animationend', () => heart.remove());
+    });
+  </script>
+</body>
+</html>
