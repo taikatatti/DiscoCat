@@ -129,6 +129,149 @@
   }
 }
 
+   /* Pyörivät neonlaserit */
+.laser {
+  position: absolute;
+  z-index: 1;
+  top: 175px;
+  left: 50%;
+  width: 580px;
+  height: 7px;
+  transform-origin: 0 50%;
+  pointer-events: none;
+  opacity: .8;
+  mix-blend-mode: screen;
+  filter: blur(1px);
+  box-shadow: 0 0 10px currentColor, 0 0 28px currentColor;
+}
+
+.laser-a {
+  color: #43eaff;
+  background: linear-gradient(90deg, #43eaff, transparent 82%);
+  animation: laser-a 3.3s linear infinite;
+}
+
+.laser-b {
+  color: #ed56ff;
+  background: linear-gradient(90deg, #ed56ff, transparent 78%);
+  animation: laser-b 4.1s linear infinite;
+}
+
+.laser-c {
+  color: #706dff;
+  background: linear-gradient(90deg, #706dff, transparent 75%);
+  animation: laser-c 2.7s linear infinite;
+}
+
+@keyframes laser-a {
+  from { transform: rotate(-38deg) scaleX(.6); }
+  50% { transform: rotate(52deg) scaleX(1); }
+  to { transform: rotate(322deg) scaleX(.7); }
+}
+
+@keyframes laser-b {
+  from { transform: rotate(135deg) scaleX(.8); }
+  50% { transform: rotate(235deg) scaleX(.55); }
+  to { transform: rotate(495deg) scaleX(.9); }
+}
+
+@keyframes laser-c {
+  from { transform: rotate(72deg) scaleX(.45); }
+  50% { transform: rotate(-42deg) scaleX(1); }
+  to { transform: rotate(-288deg) scaleX(.65); }
+}
+
+/* Kaukaiset tanssivat varjohahmot */
+.distant-dancers {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+}
+
+.shadow {
+  position: absolute;
+  bottom: 135px;
+  width: 56px;
+  height: 137px;
+  opacity: .82;
+  filter: drop-shadow(0 0 10px #bb4dff88);
+  animation: shadow-dance .9s ease-in-out infinite alternate;
+}
+
+.shadow-body {
+  position: absolute;
+  top: 30px;
+  left: 14px;
+  width: 29px;
+  height: 74px;
+  border-radius: 45% 45% 20% 20%;
+  background: #100b29;
+}
+
+.shadow-body::before {
+  content: "";
+  position: absolute;
+  top: -29px;
+  left: 3px;
+  width: 24px;
+  height: 27px;
+  border-radius: 50%;
+  background: #100b29;
+}
+
+.shadow-body::after {
+  content: "";
+  position: absolute;
+  bottom: -27px;
+  left: 2px;
+  width: 25px;
+  height: 35px;
+  border-radius: 0 0 12px 12px;
+  background: linear-gradient(90deg, #100b29 0 42%, transparent 42% 58%, #100b29 58%);
+}
+
+.shadow-arms,
+.shadow-arms::after {
+  position: absolute;
+  top: 39px;
+  width: 17px;
+  height: 65px;
+  border-radius: 12px;
+  background: #100b29;
+  content: "";
+  transform-origin: top center;
+}
+
+.shadow-arms {
+  left: 8px;
+  transform: rotate(52deg);
+  animation: shadow-arm-left .9s ease-in-out infinite alternate;
+}
+
+.shadow-arms::after {
+  left: 31px;
+  top: -9px;
+  transform: rotate(-104deg);
+  animation: shadow-arm-right .9s ease-in-out infinite alternate;
+}
+
+.dancer-one { left: 12%; transform: scale(.78); animation-delay: -.3s; }
+.dancer-two { left: 29%; transform: scale(.58); opacity: .58; animation-delay: -.7s; }
+.dancer-three { right: 12%; transform: scale(.72); animation-delay: -.15s; }
+
+@keyframes shadow-dance {
+  to { translate: 0 -13px; rotate: 5deg; }
+}
+
+@keyframes shadow-arm-left {
+  to { transform: rotate(105deg); }
+}
+
+@keyframes shadow-arm-right {
+  to { transform: rotate(-142deg); }
+}
+    
     .cat {
       position: absolute;
       z-index: 3;
@@ -386,6 +529,15 @@
     <div class="chain"></div>
     <div class="disco-ball"></div>
     <div class="light"></div>
+    <div class="laser laser-a"></div>
+<div class="laser laser-b"></div>
+<div class="laser laser-c"></div>
+
+<div class="distant-dancers" aria-hidden="true">
+  <div class="shadow dancer-one"><span class="shadow-body"></span><span class="shadow-arms"></span></div>
+  <div class="shadow dancer-two"><span class="shadow-body"></span><span class="shadow-arms"></span></div>
+  <div class="shadow dancer-three"><span class="shadow-body"></span><span class="shadow-arms"></span></div>
+</div>
     <div class="dance-floor"></div>
     
     <div class="miku" aria-label="Tanssiva kawaii-idolihahmo">
