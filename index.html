@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Disco Cat</title>
+  <title>Disco</title>
   <style>
     * { box-sizing: border-box; }
 
@@ -95,6 +95,39 @@
       background: linear-gradient(90deg, #ff52d955, #54dfffaa, #ffec58aa, #a04dffaa);
       animation: sway 4s ease-in-out infinite alternate;
     }
+
+    .dance-floor {
+  position: absolute;
+  z-index: 2;
+  left: -8%;
+  right: -8%;
+  bottom: -3px;
+  height: 175px;
+  transform: perspective(310px) rotateX(46deg);
+  transform-origin: bottom center;
+  background:
+    conic-gradient(
+      from 90deg,
+      #6c45ff 25%,
+      #28baff 0 50%,
+      #a04dff 0 75%,
+      #2376e8 0
+    ) 0 0 / 58px 58px;
+  box-shadow: 0 -10px 35px #6b4dff88;
+  animation: floor-flash .65s steps(2, end) infinite alternate;
+}
+
+@keyframes floor-flash {
+  0% {
+    filter: brightness(.7) saturate(.8);
+    background-position: 0 0;
+  }
+
+  100% {
+    filter: brightness(1.55) saturate(1.35) hue-rotate(16deg);
+    background-position: 29px 29px;
+  }
+}
 
     .cat {
       position: absolute;
@@ -353,7 +386,8 @@
     <div class="chain"></div>
     <div class="disco-ball"></div>
     <div class="light"></div>
-
+    <div class="dance-floor"></div>
+    
     <div class="miku" aria-label="Tanssiva kawaii-idolihahmo">
   <div class="tail-hair left"></div>
   <div class="tail-hair right"></div>
